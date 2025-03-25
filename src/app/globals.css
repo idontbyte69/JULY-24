@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 17, 24, 39;
+  --red-accent: 127, 29, 29;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-100;
+  }
+  
+  p {
+    @apply text-gray-300;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-red-600 text-red-500 px-6 py-2 rounded-lg hover:bg-red-600/10 transition;
+  }
+}
+
+/* Enhanced gradient support */
+@layer utilities {
+  .bg-gradient-radish {
+    background: linear-gradient(180deg, 
+      rgba(17, 24, 39, 1) 0%,
+      rgba(127, 29, 29, 0.4) 25%,
+      rgba(17, 24, 39, 0.95) 100%
+    );
+  }
+  
+  .bg-gradient-radish-overlay {
+    background: radial-gradient(
+      circle at center,
+      rgba(127, 29, 29, 0.2) 0%,
+      rgba(17, 24, 39, 0.6) 50%,
+      rgba(17, 24, 39, 0.9) 100%
+    );
+  }
+
+  .noise-texture {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+  }
+} 
