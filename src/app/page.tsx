@@ -2,9 +2,9 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-red-900/90 to-gray-900 text-white py-20 text-center">
+      <section className="text-white py-20 text-center">
         <h1 className="text-5xl font-bold mb-4">Supporting Victims of JULY-24</h1>
         <p className="text-xl mb-8 text-gray-200 max-w-3xl mx-auto">
           Together we can provide comfort, support, and resources to those affected by this devastating event.
@@ -26,7 +26,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="py-16 bg-gray-900/50">
+      <section className="py-16 bg-transparent">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-red-500">About JULY-24</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -80,7 +80,7 @@ export default function Home() {
       </section>
 
       {/* Impact Summary */}
-      <section className="py-16 bg-gray-900/50">
+      <section className="py-16 bg-transparent">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-red-500">Impact Summary</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -104,7 +104,7 @@ export default function Home() {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 bg-gray-900">
+      <section className="py-16 bg-transparent">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-red-500">Upcoming Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -128,7 +128,7 @@ export default function Home() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-t from-red-900/90 to-gray-900 text-white">
+      <section className="py-16 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6">Join Us in Making a Difference</h2>
           <p className="text-xl mb-8 text-gray-200 max-w-3xl mx-auto">
