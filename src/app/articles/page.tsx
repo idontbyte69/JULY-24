@@ -8,7 +8,7 @@ export default function ArticlesPage() {
   const [activeTab, setActiveTab] = useState('articles')
 
   return (
-    <div className="py-8">
+    <div>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-100">Articles & Gallery</h1>

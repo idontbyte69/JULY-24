@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function AboutPage() {
   return (
-    <div className="py-8">
+    <div>
       {/* Hero Section */}
       <section className="text-white py-20">
         <div className="container mx-auto px-4 text-center">
