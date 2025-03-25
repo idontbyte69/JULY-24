@@ -38,13 +38,14 @@ export default function SignInPage() {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    try {
-      await signIn('google', { callbackUrl: '/dashboard' })
-    } catch (err) {
-      setError('Failed to sign in with Google')
-    }
-  }
+  // Temporarily commenting out Google Sign In
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     await signIn('google', { callbackUrl: '/dashboard' })
+  //   } catch (err) {
+  //     setError('Failed to sign in with Google')
+  //   }
+  // }
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -61,8 +62,8 @@ export default function SignInPage() {
           </p>
         </div>
 
-        {/* Google Sign In Button */}
-        <div>
+        {/* Temporarily removing Google Sign In Button */}
+        {/* <div>
           <button
             onClick={handleGoogleSignIn}
             className="w-full flex items-center justify-center px-4 py-2 border border-gray-700 rounded-md shadow-sm text-sm font-medium text-gray-200 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
@@ -96,7 +97,7 @@ export default function SignInPage() {
           <div className="relative flex justify-center text-sm">
             <span className="px-2 bg-gray-900 text-gray-400">Or continue with email</span>
           </div>
-        </div>
+        </div> */}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
