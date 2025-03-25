@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
+import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'JULY-24',
-  description: 'Supporting victims and their families',
+  description: 'Memorial for the victims of July 24',
 }
 
 export default function RootLayout({
@@ -18,13 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-gray-900 bg-gradient-radish`}>
-        <div className="fixed inset-0 bg-gradient-radish-overlay noise-texture pointer-events-none" aria-hidden="true" />
-        <Navbar />
-        <main className="flex-grow pt-16 relative">
-          {children}
-        </main>
-        <Footer />
+      <body className={inter.className}>
+        <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-900 via-red-900/30 to-gray-900">
+          <Navigation />
+          <main className="relative">
+            {children}
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   )

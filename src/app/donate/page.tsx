@@ -1,176 +1,224 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function DonatePage() {
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
-  const [customAmount, setCustomAmount] = useState('')
+  const [selectedCause, setSelectedCause] = useState('general')
+  const [amount, setAmount] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const predefinedAmounts = [100, 500, 1000, 2000, 5000]
+  const causes = [
+    {
+      id: 'general',
+      title: 'General Fund',
+      description: 'Support our overall mission and operational costs',
+      icon: '🎯',
+    },
+    {
+      id: 'victims',
+      title: 'Victim Support',
+      description: 'Help provide immediate assistance to victims and their families',
+      icon: '🤝',
+    },
+    {
+      id: 'medical',
+      title: 'Medical Aid',
+      description: 'Support medical expenses and rehabilitation for victims',
+      icon: '🏥',
+    },
+    {
+      id: 'legal',
+      title: 'Legal Support',
+      description: 'Help with legal fees and justice proceedings',
+      icon: '⚖️',
+    },
+    {
+      id: 'education',
+      title: 'Education Fund',
+      description: 'Support education for victims and their children',
+      icon: '📚',
+    },
+    {
+      id: 'counseling',
+      title: 'Counseling Services',
+      description: 'Help provide mental health support and counseling',
+      icon: '💭',
+    },
+  ]
 
-  const handleDonate = (amount: number) => {
-    // Here you would integrate with your payment gateway
-    console.log(`Processing donation of ${amount} BDT`)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+      // Here you would integrate with a payment gateway
+      // For demo purposes, we'll simulate a successful donation
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
+      alert('Thank you for your donation! We will send you a confirmation email shortly.')
+      setAmount('')
+    } catch (err) {
+      alert('There was an error processing your donation. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section */}
-      <div className="relative h-[40vh] w-full bg-gray-800">
-        <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Support the Victims
-            </h1>
-            <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-              Your donation can help provide essential support to victims and their families
-            </p>
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-200 mb-4">
+            Support Our Cause
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Your donation helps us provide support, resources, and assistance to those affected by the events of July 24.
+          </p>
+        </div>
+
+        {/* Donation Options */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Left Column - Cause Selection */}
+          <div className="space-y-6">
+            <h2 className="text-2xl font-semibold text-gray-200 mb-4">
+              Select a Cause
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {causes.map((cause) => (
+                <button
+                  key={cause.id}
+                  onClick={() => setSelectedCause(cause.id)}
+                  className={`p-4 rounded-lg border transition-all ${
+                    selectedCause === cause.id
+                      ? 'border-red-500 bg-red-900/20'
+                      : 'border-gray-700 hover:border-red-500/50'
+                  }`}
+                >
+                  <div className="text-3xl mb-2">{cause.icon}</div>
+                  <h3 className="text-lg font-medium text-gray-200">{cause.title}</h3>
+                  <p className="text-sm text-gray-400 mt-1">{cause.description}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Donation Form */}
+          <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-red-900/20">
+            <h2 className="text-2xl font-semibold text-gray-200 mb-6">
+              Make a Donation
+            </h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="amount" className="block text-sm font-medium text-gray-300">
+                  Amount (BDT)
+                </label>
+                <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span className="text-gray-400 sm:text-sm">৳</span>
+                  </div>
+                  <input
+                    type="number"
+                    name="amount"
+                    id="amount"
+                    required
+                    min="1"
+                    className="appearance-none block w-full pl-7 pr-12 py-2 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm bg-gray-800 text-gray-200"
+                    placeholder="0.00"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Payment Method
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    type="button"
+                    className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                  >
+                    <span className="text-2xl">💳</span>
+                    <span className="ml-2 text-gray-300">Card</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                  >
+                    <span className="text-2xl">🏦</span>
+                    <span className="ml-2 text-gray-300">Bank</span>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                >
+                  {isSubmitting ? 'Processing...' : 'Donate Now'}
+                </button>
+              </div>
+            </form>
+
+            {/* Additional Information */}
+            <div className="mt-8 pt-8 border-t border-gray-700">
+              <h3 className="text-lg font-medium text-gray-200 mb-4">
+                Other Ways to Support
+              </h3>
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <span className="text-2xl mr-3">🏥</span>
+                  <div>
+                    <h4 className="text-gray-200 font-medium">Medical Supplies</h4>
+                    <p className="text-sm text-gray-400">Donate medical supplies and equipment</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-2xl mr-3">👕</span>
+                  <div>
+                    <h4 className="text-gray-200 font-medium">Clothing & Essentials</h4>
+                    <p className="text-sm text-gray-400">Donate clothes, food, and other essential items</p>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-2xl mr-3">🤝</span>
+                  <div>
+                    <h4 className="text-gray-200 font-medium">Volunteer</h4>
+                    <p className="text-sm text-gray-400">Join our volunteer program to help directly</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Left Column - Donation Options */}
-          <div className="space-y-8">
-            <div className="bg-gray-800 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-white mb-6">Make a Donation</h2>
-              
-              {/* Predefined Amounts */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-6">
-                {predefinedAmounts.map((amount) => (
-                  <button
-                    key={amount}
-                    onClick={() => setSelectedAmount(amount)}
-                    className={`p-4 rounded-lg border ${
-                      selectedAmount === amount
-                        ? 'border-red-500 bg-red-500/10 text-red-500'
-                        : 'border-gray-700 text-gray-300 hover:border-red-500'
-                    }`}
-                  >
-                    {amount} BDT
-                  </button>
-                ))}
-              </div>
-
-              {/* Custom Amount */}
-              <div className="mb-6">
-                <label htmlFor="customAmount" className="block text-sm font-medium text-gray-300 mb-2">
-                  Custom Amount
-                </label>
-                <input
-                  type="number"
-                  id="customAmount"
-                  value={customAmount}
-                  onChange={(e) => {
-                    setCustomAmount(e.target.value)
-                    setSelectedAmount(null)
-                  }}
-                  placeholder="Enter amount in BDT"
-                  className="w-full px-4 py-2 rounded-lg border border-gray-700 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-              </div>
-
-              {/* Donate Button */}
-              <button
-                onClick={() => handleDonate(selectedAmount || Number(customAmount))}
-                className="w-full py-3 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-gray-800"
-              >
-                Donate Now
-              </button>
+        {/* Transparency Section */}
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-semibold text-gray-200 mb-4">
+            Our Commitment to Transparency
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-red-900/20">
+              <div className="text-3xl mb-4">📊</div>
+              <h3 className="text-lg font-medium text-gray-200 mb-2">Regular Reports</h3>
+              <p className="text-gray-400">Monthly updates on fund allocation and impact</p>
             </div>
-
-            {/* Payment Methods */}
-            <div className="bg-gray-800 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-white mb-4">Payment Methods</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center space-x-2 p-3 border border-gray-700 rounded-lg">
-                  <span className="text-gray-300">bKash</span>
-                </div>
-                <div className="flex items-center space-x-2 p-3 border border-gray-700 rounded-lg">
-                  <span className="text-gray-300">Nagad</span>
-                </div>
-                <div className="flex items-center space-x-2 p-3 border border-gray-700 rounded-lg">
-                  <span className="text-gray-300">Rocket</span>
-                </div>
-                <div className="flex items-center space-x-2 p-3 border border-gray-700 rounded-lg">
-                  <span className="text-gray-300">Card</span>
-                </div>
-              </div>
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-red-900/20">
+              <div className="text-3xl mb-4">🔍</div>
+              <h3 className="text-lg font-medium text-gray-200 mb-2">Accountability</h3>
+              <p className="text-gray-400">Independent audits and transparent financial records</p>
             </div>
-          </div>
-
-          {/* Right Column - Impact & Information */}
-          <div className="space-y-8">
-            {/* Impact Section */}
-            <div className="bg-gray-800 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-white mb-6">Your Impact</h2>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">Emergency Relief</h3>
-                    <p className="text-gray-400">Provide immediate assistance to victims and their families</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">Medical Support</h3>
-                    <p className="text-gray-400">Help cover medical expenses for injured victims</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-red-500/10 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">Legal Aid</h3>
-                    <p className="text-gray-400">Support legal proceedings and justice for victims</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Transparency Section */}
-            <div className="bg-gray-800 rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-white mb-6">Transparency</h2>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Total Donations</span>
-                  <span className="text-white font-semibold">৳1,234,567</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Beneficiaries</span>
-                  <span className="text-white font-semibold">150+</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-gray-300">Success Rate</span>
-                  <span className="text-white font-semibold">98%</span>
-                </div>
-                <div className="pt-4 border-t border-gray-700">
-                  <p className="text-sm text-gray-400">
-                    We maintain complete transparency in our operations. All donations are tracked and reported regularly.
-                  </p>
-                </div>
-              </div>
+            <div className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-red-900/20">
+              <div className="text-3xl mb-4">💫</div>
+              <h3 className="text-lg font-medium text-gray-200 mb-2">Impact Tracking</h3>
+              <p className="text-gray-400">Real-time updates on how your donation helps</p>
             </div>
           </div>
         </div>

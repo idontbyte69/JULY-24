@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-// Temporarily commenting out Next Auth
-// import { signIn } from 'next-auth/react'
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -43,9 +41,10 @@ export default function SignUpPage() {
       return
     }
 
+    // Here you would typically make an API call to register the user
+    // For demo purposes, we'll simulate a successful registration
     try {
-      // Here you would typically make an API call to register the user
-      // For demo purposes, we'll simulate a successful registration
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Store user data in localStorage (in a real app, this would be handled by your backend)
@@ -64,15 +63,6 @@ export default function SignUpPage() {
     }
   }
 
-  // Temporarily commenting out Google Sign Up
-  // const handleGoogleSignUp = async () => {
-  //   try {
-  //     await signIn('google', { callbackUrl: '/dashboard' })
-  //   } catch (err) {
-  //     setError('Failed to sign up with Google')
-  //   }
-  // }
-
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -87,19 +77,6 @@ export default function SignUpPage() {
             </Link>
           </p>
         </div>
-
-        {/* Temporarily removing Google Sign Up Button and divider */}
-        {/* <div>
-          <button onClick={handleGoogleSignUp}>Continue with Google</button>
-        </div>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-700"></div>
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-gray-900 text-gray-400">Or continue with email</span>
-          </div>
-        </div> */}
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
