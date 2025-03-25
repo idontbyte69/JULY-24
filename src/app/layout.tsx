@@ -18,9 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-gray-900`}>
+      <body className={`${inter.className} min-h-screen flex flex-col bg-gray-900 bg-gradient-radish`}>
+        <div className="fixed inset-0 bg-gradient-radish-overlay noise-texture pointer-events-none" aria-hidden="true" />
         <Navbar />
-        <main className="flex-grow pt-16">
+        <main className="flex-grow pt-16 relative">
           {children}
         </main>
         <Footer />

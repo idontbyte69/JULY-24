@@ -117,22 +117,18 @@ export default function Footer() {
               <Link href="/faq" className="text-gray-400 hover:text-red-500 text-sm">
                 FAQ
               </Link>
+              <p className="text-gray-500 text-sm">
+                Developed by{' '}
+                <a href="https://github.com/tanveer" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400">
+                  Tanveer
+                </a>{' '}
+                &{' '}
+                <a href="https://github.com/sayed" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400">
+                  Sayed
+                </a>
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* Developer Credits */}
-        <div className="mt-4 text-center">
-          <p className="text-gray-500 text-sm">
-            Developed by{' '}
-            <a href="https://github.com/tanveer" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400">
-              Tanveer
-            </a>{' '}
-            &{' '}
-            <a href="https://github.com/sayed" target="_blank" rel="noopener noreferrer" className="text-red-500 hover:text-red-400">
-              Sayed
-            </a>
-          </p>
         </div>
       </div>
     </footer>

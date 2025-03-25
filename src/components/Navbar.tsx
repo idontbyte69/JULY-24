@@ -38,12 +38,36 @@ export default function Navbar() {
               Home
             </Link>
             <Link
+              href="/about"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/about') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+              }`}
+            >
+              About
+            </Link>
+            <Link
               href="/victims"
               className={`text-sm font-medium transition-colors ${
                 isActive('/victims') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
               }`}
             >
               Victims
+            </Link>
+            <Link
+              href="/support"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/support') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+              }`}
+            >
+              Support
+            </Link>
+            <Link
+              href="/articles"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/articles') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+              }`}
+            >
+              Articles
             </Link>
             <Link
               href="/donate"
@@ -109,6 +133,15 @@ export default function Navbar() {
             Home
           </Link>
           <Link
+            href="/about"
+            className={`block px-3 py-2 rounded-md text-base font-medium ${
+              isActive('/about') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+            }`}
+            onClick={closeMenu}
+          >
+            About
+          </Link>
+          <Link
             href="/victims"
             className={`block px-3 py-2 rounded-md text-base font-medium ${
               isActive('/victims') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
@@ -116,6 +149,24 @@ export default function Navbar() {
             onClick={closeMenu}
           >
             Victims
+          </Link>
+          <Link
+            href="/support"
+            className={`block px-3 py-2 rounded-md text-base font-medium ${
+              isActive('/support') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+            }`}
+            onClick={closeMenu}
+          >
+            Support
+          </Link>
+          <Link
+            href="/articles"
+            className={`block px-3 py-2 rounded-md text-base font-medium ${
+              isActive('/articles') ? 'text-red-500' : 'text-gray-300 hover:text-red-500'
+            }`}
+            onClick={closeMenu}
+          >
+            Articles
           </Link>
           <Link
             href="/donate"
