@@ -1,27 +1,33 @@
 import Link from 'next/link'
+import ImageSlider from '@/components/ImageSlider'
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="text-white py-20 text-center">
-        <h1 className="text-5xl font-bold mb-4">Supporting Victims of JULY-24</h1>
-        <p className="text-xl mb-8 text-gray-200 max-w-3xl mx-auto">
-          Together we can provide comfort, support, and resources to those affected by this devastating event.
-        </p>
-        <div className="flex justify-center gap-4">
-          <Link 
-            href="/donate"
-            className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
-          >
-            Donate Now
-          </Link>
-          <Link
-            href="/victims"
-            className="border-2 border-red-600 text-red-500 px-8 py-3 rounded-lg font-semibold hover:bg-red-600/10 transition"
-          >
-            View Victims List
-          </Link>
+      <section className="relative">
+        <ImageSlider />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center z-10">
+            <h1 className="text-5xl font-bold mb-4 text-white">Supporting Victims of JULY-24</h1>
+            <p className="text-xl mb-8 text-gray-200 max-w-3xl mx-auto px-4">
+              Together we can provide comfort, support, and resources to those affected by this devastating event.
+            </p>
+            <div className="flex justify-center gap-4">
+              <Link 
+                href="/donate"
+                className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition"
+              >
+                Donate Now
+              </Link>
+              <Link
+                href="/victims"
+                className="border-2 border-red-600 text-red-500 px-8 py-3 rounded-lg font-semibold hover:bg-red-600/10 transition"
+              >
+                View Victims List
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
