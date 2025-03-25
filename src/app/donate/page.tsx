@@ -7,6 +7,35 @@ export default function DonatePage() {
   const [selectedCause, setSelectedCause] = useState('general')
   const [amount, setAmount] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('')
+  const [showMobileBanking, setShowMobileBanking] = useState(false)
+
+  const mobileBankingOptions = [
+    {
+      id: 'bKash',
+      name: 'bKash',
+      icon: '📱',
+      number: '01XXXXXXXXX',
+    },
+    {
+      id: 'nagad',
+      name: 'Nagad',
+      icon: '📱',
+      number: '01XXXXXXXXX',
+    },
+    {
+      id: 'rocket',
+      name: 'Rocket',
+      icon: '📱',
+      number: '01XXXXXXXXX',
+    },
+    {
+      id: 'upay',
+      name: 'Upay',
+      icon: '📱',
+      number: '01XXXXXXXXX',
+    },
+  ]
 
   const causes = [
     {
@@ -66,7 +95,7 @@ export default function DonatePage() {
   }
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 mt-16">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-12">
@@ -136,23 +165,76 @@ export default function DonatePage() {
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Payment Method
                 </label>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-3 gap-4">
                   <button
                     type="button"
-                    className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                    onClick={() => {
+                      setSelectedPaymentMethod('card')
+                      setShowMobileBanking(false)
+                    }}
+                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                      selectedPaymentMethod === 'card'
+                        ? 'border-red-500 bg-red-900/20'
+                        : 'border-gray-700 hover:border-red-500/50'
+                    }`}
                   >
                     <span className="text-2xl">💳</span>
                     <span className="ml-2 text-gray-300">Card</span>
                   </button>
                   <button
                     type="button"
-                    className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                    onClick={() => {
+                      setSelectedPaymentMethod('bank')
+                      setShowMobileBanking(false)
+                    }}
+                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                      selectedPaymentMethod === 'bank'
+                        ? 'border-red-500 bg-red-900/20'
+                        : 'border-gray-700 hover:border-red-500/50'
+                    }`}
                   >
                     <span className="text-2xl">🏦</span>
                     <span className="ml-2 text-gray-300">Bank</span>
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedPaymentMethod('mobile')
+                      setShowMobileBanking(true)
+                    }}
+                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                      selectedPaymentMethod === 'mobile'
+                        ? 'border-red-500 bg-red-900/20'
+                        : 'border-gray-700 hover:border-red-500/50'
+                    }`}
+                  >
+                    <span className="text-2xl">📱</span>
+                    <span className="ml-2 text-gray-300">Mobile</span>
+                  </button>
                 </div>
               </div>
+
+              {/* Mobile Banking Options */}
+              {showMobileBanking && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium text-gray-200">Select Mobile Banking Service</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {mobileBankingOptions.map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                      >
+                        <span className="text-2xl mr-2">{option.icon}</span>
+                        <div className="text-left">
+                          <div className="text-gray-200 font-medium">{option.name}</div>
+                          <div className="text-sm text-gray-400">{option.number}</div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <div>
                 <button
