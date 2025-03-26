@@ -31,10 +31,10 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-topr justify-center py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-4">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-200">
+          <h2 className="text-center text-3xl font-extrabold text-gray-200">
             Sign in to your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
@@ -44,7 +44,7 @@ export default function SignInPage() {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">

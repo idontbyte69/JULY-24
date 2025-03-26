@@ -95,10 +95,10 @@ export default function DonatePage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen px-4">
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 md:mb-12">
           <h1 className="text-4xl font-bold text-gray-200 mb-4">
             Support Our Cause
           </h1>
@@ -108,37 +108,38 @@ export default function DonatePage() {
         </div>
 
         {/* Donation Options */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Left Column - Cause Selection */}
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             <h2 className="text-2xl font-semibold text-gray-200 mb-4">
               Select a Cause
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-4">
               {causes.map((cause) => (
                 <button
                   key={cause.id}
                   onClick={() => setSelectedCause(cause.id)}
-                  className={`p-4 rounded-lg border transition-all ${
+                  className={`p-3 md:p-4 rounded-lg border transition-all ${
                     selectedCause === cause.id
                       ? 'border-red-500 bg-red-900/20'
                       : 'border-gray-700 hover:border-red-500/50'
                   }`}
                 >
-                  <div className="text-3xl mb-2">{cause.icon}</div>
-                  <h3 className="text-lg font-medium text-gray-200">{cause.title}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{cause.description}</p>
+                  <div className="text-2xl md:text-3xl mb-2">{cause.icon}</div>
+                  <h3 className="text-base md:text-lg font-medium text-gray-200">{cause.title}</h3>
+                  <p className="text-xs md:text-sm text-gray-400 mt-1 line-clamp-2">{cause.description}</p>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Right Column - Donation Form */}
-          <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-red-900/20">
-            <h2 className="text-2xl font-semibold text-gray-200 mb-6">
+          <div className="bg-gray-800/50 backdrop-blur-sm p-4 md:p-6 rounded-lg border border-red-900/20">
+            <h2 className="text-2xl font-semibold text-gray-200 mb-4 md:mb-6">
               Make a Donation
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              {/* Amount Input */}
               <div>
                 <label htmlFor="amount" className="block text-sm font-medium text-gray-300">
                   Amount (BDT)
@@ -161,25 +162,26 @@ export default function DonatePage() {
                 </div>
               </div>
 
+              {/* Payment Method */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Payment Method
                 </label>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3 gap-2 md:gap-4">
                   <button
                     type="button"
                     onClick={() => {
                       setSelectedPaymentMethod('card')
                       setShowMobileBanking(false)
                     }}
-                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                    className={`flex items-center justify-center p-2 md:p-3 border rounded-md transition-colors ${
                       selectedPaymentMethod === 'card'
                         ? 'border-red-500 bg-red-900/20'
                         : 'border-gray-700 hover:border-red-500/50'
                     }`}
                   >
-                    <span className="text-2xl">💳</span>
-                    <span className="ml-2 text-gray-300">Card</span>
+                    <span className="text-xl md:text-2xl">💳</span>
+                    <span className="ml-1 md:ml-2 text-sm md:text-base text-gray-300">Card</span>
                   </button>
                   <button
                     type="button"
@@ -187,14 +189,14 @@ export default function DonatePage() {
                       setSelectedPaymentMethod('bank')
                       setShowMobileBanking(false)
                     }}
-                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                    className={`flex items-center justify-center p-2 md:p-3 border rounded-md transition-colors ${
                       selectedPaymentMethod === 'bank'
                         ? 'border-red-500 bg-red-900/20'
                         : 'border-gray-700 hover:border-red-500/50'
                     }`}
                   >
-                    <span className="text-2xl">🏦</span>
-                    <span className="ml-2 text-gray-300">Bank</span>
+                    <span className="text-xl md:text-2xl">🏦</span>
+                    <span className="ml-1 md:ml-2 text-sm md:text-base text-gray-300">Bank</span>
                   </button>
                   <button
                     type="button"
@@ -202,33 +204,33 @@ export default function DonatePage() {
                       setSelectedPaymentMethod('mobile')
                       setShowMobileBanking(true)
                     }}
-                    className={`flex items-center justify-center p-3 border rounded-md transition-colors ${
+                    className={`flex items-center justify-center p-2 md:p-3 border rounded-md transition-colors ${
                       selectedPaymentMethod === 'mobile'
                         ? 'border-red-500 bg-red-900/20'
                         : 'border-gray-700 hover:border-red-500/50'
                     }`}
                   >
-                    <span className="text-2xl">📱</span>
-                    <span className="ml-2 text-gray-300">Mobile</span>
+                    <span className="text-xl md:text-2xl">📱</span>
+                    <span className="ml-1 md:ml-2 text-sm md:text-base text-gray-300">Mobile</span>
                   </button>
                 </div>
               </div>
 
               {/* Mobile Banking Options */}
               {showMobileBanking && (
-                <div className="space-y-4">
+                <div className="space-y-3 md:space-y-4">
                   <h3 className="text-lg font-medium text-gray-200">Select Mobile Banking Service</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-2 md:gap-4">
                     {mobileBankingOptions.map((option) => (
                       <button
                         key={option.id}
                         type="button"
-                        className="flex items-center justify-center p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
+                        className="flex items-center justify-center p-2 md:p-3 border border-gray-700 rounded-md hover:border-red-500 transition-colors"
                       >
-                        <span className="text-2xl mr-2">{option.icon}</span>
+                        <span className="text-xl md:text-2xl mr-2">{option.icon}</span>
                         <div className="text-left">
-                          <div className="text-gray-200 font-medium">{option.name}</div>
-                          <div className="text-sm text-gray-400">{option.number}</div>
+                          <div className="text-sm md:text-base text-gray-200 font-medium">{option.name}</div>
+                          <div className="text-xs md:text-sm text-gray-400">{option.number}</div>
                         </div>
                       </button>
                     ))}

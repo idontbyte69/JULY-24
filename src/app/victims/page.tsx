@@ -48,6 +48,38 @@ export default function VictimsPage() {
         </div>
       </section>
 
+      {/* Add Victim Notice */}
+      <div className="container mx-auto px-4 mb-8">
+        <div className="bg-gray-800/50 backdrop-blur-sm border border-red-900/20 rounded-lg p-6 text-center">
+          <h3 className="text-xl font-semibold text-gray-100 mb-3">
+            Do you know someone affected by the JULY-24 incident?
+          </h3>
+          <p className="text-gray-300 mb-4">
+            If you have information about someone who was affected by this incident and would like to add them to our records,
+            please sign in to submit their details. We verify all submissions to maintain accuracy.
+          </p>
+          <Link 
+            href="/sign-in" 
+            className="inline-flex items-center text-red-500 hover:text-red-400 font-medium"
+          >
+            <span>Sign in to add victim information</span>
+            <svg 
+              className="w-5 h-5 ml-2" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M17 8l4 4m0 0l-4 4m4-4H3" 
+              />
+            </svg>
+          </Link>
+        </div>
+      </div>
+
       {/* Main Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
