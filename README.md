@@ -1,67 +1,109 @@
-# JULY-24 Project
+# JULY 24 Project
 
-A platform supporting victims and families affected by the events of July 24 student movement in Bangladesh. Together we can make a difference in the lives of those impacted.
+A comprehensive web platform dedicated to documenting and managing information about the events of July 24, providing support to victims and their families, and facilitating coordination between various stakeholders.
 
-## Features
+## 🌟 Features
 
-- Victim memorial and information
-- Donation system
-- Event management
-- Articles and gallery
-- Multi-user roles (Admin, NGO, Donor, Victim)
-- Secure verification system
+### Public Features
+- **Victim Memorial**: Browse and search through victim profiles
+- **News & Updates**: Latest news and articles about the events
+- **Gallery**: Photo and video documentation
+- **Donation System**: Multiple ways to contribute and support
+- **Contact & Support**: Various channels for assistance and information
 
-## Tech Stack
+### Dashboard Features
+- **Victim Records Management**: Track and manage victim information
+- **Nominee Records**: Handle nominee profiles and verifications
+- **Content Approval**: Review and approve articles and media
+- **Donor Management**: Track donations and donor information
+- **UNO Accounts**: Manage UNO profiles and assignments
+- **Security & Audit**: Monitor system security and user activities
+- **Settings**: Configure system parameters and preferences
 
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Prisma (ORM)
-- PostgreSQL
-- NextAuth.js
-- Node.js
+## 🚀 Tech Stack
 
-## Getting Started
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Authentication**: NextAuth.js
+- **Database**: (To be implemented)
+- **Deployment**: Vercel
 
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/july-24-project.git
-cd july-24-project
+## 🛠️ Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/july-24.git
+   cd july-24
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Set up environment variables**
+   Create a `.env.local` file in the root directory with the following variables:
+   ```
+   # Add your environment variables here
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Open [http://localhost:3000](http://localhost:3000) in your browser**
+
+## 📁 Project Structure
+
+```
+july-24/
+├── src/
+│   ├── app/                 # App router pages
+│   ├── components/          # Reusable components
+│   ├── lib/                 # Utility functions
+│   └── styles/              # Global styles
+├── public/                  # Static assets
+└── ...config files
 ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+## 🔐 Authentication
 
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-```
-Edit `.env.local` with your configuration.
+The project uses a role-based authentication system with the following roles:
+- Admin
+- UNO
+- NGO
+- Family Member
+- Volunteer
 
-4. Run the development server:
-```bash
-npm run dev
-```
+## 🤝 Contributing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## Project Structure
+## 📝 License
 
-```
-src/
-├── app/              # Next.js app router pages
-├── components/       # Reusable components
-├── lib/             # Utility functions and configurations
-├── styles/          # Global styles
-└── utils/           # Helper functions
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contributing
+## 👥 Developers
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+- [Tanveer](https://github.com/yourusername)
+- [Sayed](https://github.com/yourusername)
 
-## License
+## 🙏 Acknowledgments
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details. 
+- All contributors and supporters
+- The community for their continuous support
+- Various open-source projects that made this possible
+
+---
+
+Made with ❤️ for the community 
