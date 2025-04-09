@@ -16,6 +16,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/sign-in/page.js"
     ],
+    "/sign-up/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/sign-up/page.js"
+    ],
+    "/verify-account/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/verify-account/page.js"
+    ],
     "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,15 +36,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/victims/page.js"
     ],
-    "/verify-account/page": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/verify-account/page.js"
-    ],
-    "/sign-up/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/sign-up/page.js"
+      "static/chunks/app/not-found.js"
     ]
   }
 }

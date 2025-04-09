@@ -1,158 +1,62 @@
-import { hash, compare } from 'bcryptjs'
-import { sign, verify } from 'jsonwebtoken'
 import pool from './db'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'
-
-export interface User {
-  id: number
-  email: string
-  fullName: string
-  role: string
-  verified: boolean
-}
-
-export async function signUp(userData: {
-  email: string
-  password: string
-  fullName: string
-  role: string
-  phone?: string
-  organizationName?: string
-  address?: string
-  emergencyContact?: string
-}) {
-  try {
-    const connection = await pool.getConnection()
-    
-    // Check if user already exists
-    const [existingUsers] = await connection.execute(
-      'SELECT * FROM users WHERE email = ?',
-      [userData.email]
-    )
-    
-    if (Array.isArray(existingUsers) && existingUsers.length > 0) {
-      throw new Error('User already exists')
-    }
-
-    // Hash password
-    const hashedPassword = await hash(userData.password, 12)
-
-    // Insert user
-    const [result] = await connection.execute(
-      `INSERT INTO users (email, password, full_name, role, phone, organization_name, address, emergency_contact, verified)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        userData.email,
-        hashedPassword,
-        userData.fullName,
-        userData.role,
-        userData.phone || null,
-        userData.organizationName || null,
-        userData.address || null,
-        userData.emergencyContact || null,
-        false
-      ]
-    )
-
-    connection.release()
-
-    // Generate verification token
-    const token = sign(
-      { 
-        userId: (result as any).insertId,
-        email: userData.email,
-        role: userData.role
-      },
-      JWT_SECRET,
-      { expiresIn: '1h' }
-    )
-
-    return { token, userId: (result as any).insertId }
-  } catch (error) {
-    throw error
-  }
-}
-
-export async function signIn(email: string, password: string) {
-  try {
-    const connection = await pool.getConnection()
-    
-    // Get user
-    const [users] = await connection.execute(
-      'SELECT * FROM users WHERE email = ?',
-      [email]
-    )
-
-    connection.release()
-
-    if (!Array.isArray(users) || users.length === 0) {
-      throw new Error('User not found')
-    }
-
-    const user = users[0] as any
-
-    // Verify password
-    const isValid = await compare(password, user.password)
-    if (!isValid) {
-      throw new Error('Invalid password')
-    }
-
-    // Generate token
-    const token = sign(
-      { 
-        userId: user.id,
-        email: user.email,
-        role: user.role
-      },
-      JWT_SECRET,
-      { expiresIn: '1d' }
-    )
-
-    return { 
-      token,
-      user: {
-        id: user.id,
-        email: user.email,
-        fullName: user.full_name,
-        role: user.role,
-        verified: user.verified
-      }
-    }
-  } catch (error) {
-    throw error
-  }
-}
-
-export async function verifyToken(token: string): Promise<User> {
-  try {
-    const decoded = verify(token, JWT_SECRET) as any
-    return {
-      id: decoded.userId,
-      email: decoded.email,
-      fullName: decoded.fullName,
-      role: decoded.role,
-      verified: decoded.verified
-    }
-  } catch (error) {
-    throw new Error('Invalid token')
-  }
-}
+const JWT_SECRET = process.env.JWT_SECRET || 'july24_secret_key_2024'
 
 export async function verifyAccount(userId: number, verificationCode: string) {
   try {
     const connection = await pool.getConnection()
-    
-    // In a real application, you would verify the code against a stored code
-    // For demo purposes, we'll just verify the account
+    console.log(`[Auth Lib] Verifying account for userId: ${userId}`)
+    // For demo purposes, we assume the code was already validated by the API route
+    // and just mark the user as verified.
     await connection.execute(
-      'UPDATE users SET verified = true WHERE id = ?',
+      'UPDATE users SET is_verified = true WHERE id = ? AND is_verified = false', // Ensure we only update if not already verified
       [userId]
     )
-
+    const result = await connection.execute('SELECT is_verified FROM users WHERE id = ?', [userId])
     connection.release()
-    return true
+    console.log(`[Auth Lib] User ${userId} verification status after update:`, (result[0] as any)?.[0]?.is_verified)
+    return true // Indicate success, API route handles specific messaging
   } catch (error) {
-    throw error
+    console.error(`[Auth Lib] Error in verifyAccount for userId ${userId}:`, error)
+    throw error // Re-throw for the API route to handle
+  }
+}
+
+export const hashPassword = async (password: string): Promise<string> => {
+  console.log("[Auth Lib] Hashing password...")
+  const salt = await bcrypt.genSalt(10)
+  const hash = await bcrypt.hash(password, salt)
+  console.log("[Auth Lib] Password hashed.")
+  return hash
+}
+
+export const comparePasswords = async (password: string, hashedPassword: string): Promise<boolean> => {
+  console.log("[Auth Lib] Comparing password against stored hash...")
+  const isMatch = await bcrypt.compare(password, hashedPassword)
+  console.log("[Auth Lib] Password comparison result:", isMatch)
+  return isMatch
+}
+
+export const generateToken = (userId: number | string, role: string): string => { // Allow number or string for userId flexibility
+  console.log(`[Auth Lib] Generating token for userId: ${userId}, role: ${role}`)
+  return jwt.sign(
+    { userId, role },
+    JWT_SECRET,
+    { expiresIn: '24h' } // Standard token expiry
+  )
+}
+
+// This function verifies the JWT token itself (e.g., for protected routes)
+export const verifyToken = (token: string): { userId: string; role: string } | null => {
+  try {
+    console.log("[Auth Lib] Verifying JWT token...")
+    const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; role: string; iat: number; exp: number }
+    console.log("[Auth Lib] Token verified successfully for userId:", decoded.userId)
+    return { userId: decoded.userId, role: decoded.role } // Return only essential payload
+  } catch (error) {
+    console.error("[Auth Lib] JWT verification failed:", error instanceof Error ? error.message : error)
+    return null // Return null if token is invalid or expired
   }
 } 

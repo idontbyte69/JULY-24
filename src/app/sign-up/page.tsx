@@ -26,37 +26,52 @@ export default function SignUpPage() {
     e.preventDefault()
     setError('')
     setIsSubmitting(true)
-
-    // Basic validation
+    
+    console.log('Form submitted with data:', formData)
+    
+    // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match')
       setIsSubmitting(false)
       return
     }
-
+    
+    // Validate password length
     if (formData.password.length < 8) {
       setError('Password must be at least 8 characters long')
       setIsSubmitting(false)
       return
     }
-
-    // Here you would typically make an API call to register the user
-    // For demo purposes, we'll simulate a successful registration
+    
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      console.log('Sending registration request to API...')
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
       
-      // Store user data in localStorage (in a real app, this would be handled by your backend)
-      localStorage.setItem('userData', JSON.stringify({
-        ...formData,
-        isVerified: false,
-        createdAt: new Date().toISOString(),
+      console.log('Registration response status:', response.status)
+      const data = await response.json()
+      console.log('Registration response data:', data)
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed')
+      }
+      
+      // Store user data in localStorage for verification
+      localStorage.setItem('pendingVerification', JSON.stringify({
+        email: formData.email,
+        verificationMethod: formData.verificationMethod
       }))
-
+      
       // Redirect to verification page
       router.push('/verify-account')
-    } catch (err) {
-      setError('Failed to create account. Please try again.')
+    } catch (error) {
+      console.error('Registration error:', error)
+      setError(error instanceof Error ? error.message : 'Registration failed')
     } finally {
       setIsSubmitting(false)
     }

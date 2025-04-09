@@ -11,22 +11,47 @@ export default function SignInPage() {
     password: '',
   })
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
 
-    // Demo credentials
-    const demoCredentials = {
-      email: 'admin@july24.org',
-      password: 'admin123'
-    }
+    try {
+      console.log('[Sign In Page] Sending login request:', formData)
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-    if (formData.email === demoCredentials.email && formData.password === demoCredentials.password) {
-      // Successful login
+      const data = await response.json()
+      console.log('[Sign In Page] API Response:', data)
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed. Please check your credentials.')
+      }
+
+      console.log('[Sign In Page] Login successful, redirecting...')
+      if (data.token) {
+        localStorage.setItem('authToken', data.token)
+        console.log('[Sign In Page] Token stored in localStorage.')
+      } else {
+        console.warn('[Sign In Page] No token received from API on successful login.')
+        setError('Login succeeded but no session token was received. Please try again.')
+        setIsLoading(false)
+        return
+      }
       router.push('/dashboard')
-    } else {
-      setError('Invalid email or password')
+
+    } catch (error) {
+      console.error('[Sign In Page] Login error:', error)
+      setError(error instanceof Error ? error.message : 'An unexpected error occurred.')
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -107,9 +132,10 @@ export default function SignInPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+              disabled={isLoading}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 transition duration-150 ease-in-out"
             >
-              Sign in
+              {isLoading ? 'Signing In...' : 'Sign in'}
             </button>
           </div>
         </form>
