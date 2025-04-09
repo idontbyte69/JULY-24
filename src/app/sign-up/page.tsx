@@ -12,12 +12,11 @@ export default function SignUpPage() {
     phone: '',
     password: '',
     confirmPassword: '',
-    role: 'victim', // victim, family, volunteer, or organization
-    verificationType: 'email', // email or phone
-    organizationName: '', // only if role is organization
+    role: '',
+    organizationName: '',
     address: '',
     emergencyContact: '',
-    verificationCode: '',
+    verificationMethod: 'email'
   })
   const [error, setError] = useState('')
   const [isVerifying, setIsVerifying] = useState(false)
@@ -64,21 +63,20 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center py-4 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-4">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-200">
+          <h2 className="text-center text-3xl font-extrabold text-gray-200">
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-gray-400">
-            Already have an account?{' '}
+            Or{' '}
             <Link href="/sign-in" className="font-medium text-red-500 hover:text-red-400">
-              Sign in
+              sign in to your account
             </Link>
           </p>
         </div>
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             {/* Full Name */}
             <div>
@@ -134,7 +132,7 @@ export default function SignUpPage() {
             {/* Role Selection */}
             <div>
               <label htmlFor="role" className="block text-sm font-medium text-gray-300">
-                I am a
+                Role
               </label>
               <select
                 id="role"
@@ -144,10 +142,12 @@ export default function SignUpPage() {
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
               >
+                <option value="">Select your role</option>
                 <option value="victim">Victim</option>
                 <option value="family">Family Member</option>
                 <option value="volunteer">Volunteer</option>
                 <option value="organization">Organization</option>
+                <option value="admin">Admin</option>
               </select>
             </div>
 
@@ -249,8 +249,8 @@ export default function SignUpPage() {
                     type="radio"
                     name="verificationType"
                     value="email"
-                    checked={formData.verificationType === 'email'}
-                    onChange={(e) => setFormData({ ...formData, verificationType: e.target.value })}
+                    checked={formData.verificationMethod === 'email'}
+                    onChange={(e) => setFormData({ ...formData, verificationMethod: e.target.value })}
                     className="form-radio h-4 w-4 text-red-500 border-gray-700 bg-gray-800"
                   />
                   <span className="ml-2 text-sm text-gray-300">Email</span>
@@ -260,8 +260,8 @@ export default function SignUpPage() {
                     type="radio"
                     name="verificationType"
                     value="phone"
-                    checked={formData.verificationType === 'phone'}
-                    onChange={(e) => setFormData({ ...formData, verificationType: e.target.value })}
+                    checked={formData.verificationMethod === 'phone'}
+                    onChange={(e) => setFormData({ ...formData, verificationMethod: e.target.value })}
                     className="form-radio h-4 w-4 text-red-500 border-gray-700 bg-gray-800"
                   />
                   <span className="ml-2 text-sm text-gray-300">Phone</span>

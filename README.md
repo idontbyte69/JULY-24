@@ -95,7 +95,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Developers
 
-- [Tanveer](https://github.com/yourusername)
+- [Tanveer](https://github.com/idontbyte69)
 - [Sayed](https://github.com/yourusername)
 
 ## 🙏 Acknowledgments
@@ -105,5 +105,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Various open-source projects that made this possible
 
 ---
-
-Made with ❤️ for the community 
