@@ -13,73 +13,109 @@ A comprehensive web platform dedicated to documenting and managing information a
 
 ### Dashboard Features
 - **Victim Records Management**: Track and manage victim information
-- **Nominee Records**: Handle nominee profiles and verifications
+- **Case Management**: Track and manage support cases
+- **Support Requests**: Handle various types of support requests
+- **Resource Management**: Manage and distribute resources
 - **Content Approval**: Review and approve articles and media
-- **Donor Management**: Track donations and donor information
-- **UNO Accounts**: Manage UNO profiles and assignments
 - **Security & Audit**: Monitor system security and user activities
 - **Settings**: Configure system parameters and preferences
 
 ## 🚀 Tech Stack
 
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Authentication**: NextAuth.js
-- **Database**: (To be implemented)
-- **Deployment**: Vercel
+### Frontend
+- **Framework**: Next.js 14.1.0
+- **Language**: TypeScript 5.3.3
+- **UI Library**: React 18.2.0
+- **Styling**: Tailwind CSS 3.4.1
+- **CSS Processing**: PostCSS 8.4.35, Autoprefixer 10.4.17
+
+### Backend
+- **Runtime**: Node.js
+- **Database**: MySQL (mysql2 3.14.0)
+- **Authentication**: JWT (jsonwebtoken 9.0.2)
+- **Password Hashing**: bcryptjs 3.0.2
+
+### Development Tools
+- **Type Checking**: TypeScript
+- **Code Quality**: ESLint
+- **Version Control**: Git
 
 ## 🛠️ Setup Instructions
 
-1. **Clone the repository**
+1. **Prerequisites**
+   - Node.js (v18 or higher)
+   - MySQL (v8.0 or higher)
+   - Git
+
+2. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/july-24.git
    cd july-24
    ```
 
-2. **Install dependencies**
+3. **Install dependencies**
    ```bash
    npm install
-   # or
-   yarn install
    ```
 
-3. **Set up environment variables**
+4. **Database Setup**
+   ```bash
+   # Login to MySQL
+   mysql -u root -p
+   
+   # Run the schema file
+   source schema.sql
+   ```
+
+5. **Environment Configuration**
    Create a `.env.local` file in the root directory with the following variables:
    ```
-   # Add your environment variables here
+   # Database
+   DATABASE_URL=mysql://username:password@localhost:3306/july24_db
+   
+   # JWT
+   JWT_SECRET=your_jwt_secret_key
+   
+   # Next.js
+   NEXT_PUBLIC_API_URL=http://localhost:3000/api
    ```
 
-4. **Run the development server**
+6. **Run the development server**
    ```bash
    npm run dev
-   # or
-   yarn dev
    ```
 
-5. **Open [http://localhost:3000](http://localhost:3000) in your browser**
+7. **Open [http://localhost:3000](http://localhost:3000) in your browser**
 
 ## 📁 Project Structure
 
 ```
 july-24/
 ├── src/
-│   ├── app/                 # App router pages
-│   ├── components/          # Reusable components
-│   ├── lib/                 # Utility functions
-│   └── styles/              # Global styles
+│   ├── app/                 # App router pages and API routes
+│   ├── components/          # Reusable React components
+│   └── lib/                 # Utility functions and database connections
 ├── public/                  # Static assets
+├── schema.sql              # Database schema
 └── ...config files
 ```
 
-## 🔐 Authentication
+## 🔐 Authentication & Authorization
 
-The project uses a role-based authentication system with the following roles:
+The project uses JWT-based authentication with the following roles:
 - Admin
-- UNO
-- NGO
-- Family Member
+- Victim
+- Family
 - Volunteer
+- Organization
+
+## 📊 Database Schema
+
+The database includes the following main tables:
+- `users`: User accounts and profiles
+- `cases`: Victim cases and their status
+- `support_requests`: Various types of support requests
+- `resources`: Available resources and services
 
 ## 🤝 Contributing
 
