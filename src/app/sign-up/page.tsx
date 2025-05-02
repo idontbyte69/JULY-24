@@ -37,20 +37,53 @@ export default function SignUpPage() {
     }
     
     // Validate password length
-    if (formData.password.length < 8) {
-      setError('Password must be at least 8 characters long')
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters long')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate phone number if provided
+    if (formData.phone && !/^[0-9]{10,15}$/.test(formData.phone)) {
+      setError('Please enter a valid phone number (10-15 digits)')
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate role
+    const validRoles = ['admin', 'victim', 'family', 'volunteer', 'organization']
+    if (!validRoles.includes(formData.role)) {
+      setError('Please select a valid role')
       setIsSubmitting(false)
       return
     }
     
     try {
       console.log('Sending registration request to API...')
-      const response = await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role,
+          phone: formData.phone || null,
+          organizationName: formData.organizationName || null,
+          address: formData.address || null,
+          emergencyContact: formData.emergencyContact || null,
+          verificationMethod: formData.verificationMethod
+        }),
       })
       
       console.log('Registration response status:', response.status)
@@ -58,7 +91,7 @@ export default function SignUpPage() {
       console.log('Registration response data:', data)
       
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed')
+        throw new Error(data.error || data.details || 'Registration failed')
       }
       
       // Store user data in localStorage for verification
