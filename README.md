@@ -119,11 +119,100 @@ The database includes the following main tables:
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+We welcome contributions from the community! Please follow these guidelines when contributing to the project.
+
+### Pull Request Process
+
+1. **Before You Start**
+   - Check existing issues and pull requests to avoid duplicates
+   - Discuss major changes in an issue first
+   - Ensure you have the latest code from the main branch
+
+2. **Development Workflow**
+   ```bash
+   # Create and switch to a new branch
+   git checkout -b feature/your-feature-name
+   
+   # Make your changes
+   # Add your changes
+   git add .
+   
+   # Commit with a descriptive message
+   git commit -m "feat: add new feature"
+   
+   # Push to your fork
+   git push origin feature/your-feature-name
+   ```
+
+3. **Commit Message Guidelines**
+   - Use conventional commit format:
+     - `feat:` for new features
+     - `fix:` for bug fixes
+     - `docs:` for documentation changes
+     - `style:` for formatting changes
+     - `refactor:` for code refactoring
+     - `test:` for adding tests
+     - `chore:` for maintenance tasks
+
+4. **Pull Request Requirements**
+   - Update documentation for any new features
+   - Add tests for new functionality
+   - Ensure all tests pass
+   - Update the README.md if necessary
+   - Follow the existing code style
+   - Include screenshots for UI changes
+
+5. **Code Review Process**
+   - All PRs require at least one review
+   - Address review comments promptly
+   - Keep PRs focused and small
+   - Squash commits before final merge
+
+6. **Creating a Pull Request**
+   1. Fork the repository
+   2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+   3. Make your changes
+   4. Run tests and ensure they pass
+   5. Commit your changes (`git commit -m 'feat: add some AmazingFeature'`)
+   6. Push to the branch (`git push origin feature/AmazingFeature`)
+   7. Open a Pull Request with:
+      - Clear title and description
+      - Reference to related issues
+      - Screenshots (if applicable)
+      - Testing instructions
+
+### Development Guidelines
+
+1. **Code Style**
+   - Follow TypeScript best practices
+   - Use meaningful variable and function names
+   - Add comments for complex logic
+   - Keep functions small and focused
+
+2. **Testing**
+   - Write unit tests for new features
+   - Ensure existing tests pass
+   - Add integration tests for API endpoints
+   - Test edge cases and error scenarios
+
+3. **Documentation**
+   - Update README.md for major changes
+   - Document new environment variables
+   - Add JSDoc comments for functions
+   - Update API documentation
+
+4. **Security**
+   - Never commit sensitive data
+   - Follow security best practices
+   - Validate all user inputs
+   - Use environment variables for secrets
+
+### Getting Help
+
+- Open an issue for bugs or feature requests
+- Join our community discussions
+- Check existing documentation
+- Contact maintainers for urgent issues
 
 ## 📝 License
 
