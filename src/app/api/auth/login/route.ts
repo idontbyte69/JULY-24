@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
-import { comparePasswords, generateToken } from '@/lib/auth';
+import connectDB from '@/lib/db';
+import User from '@/models/User';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'july24_secret_key_2024';
 
 export async function POST(request: Request) {
   try {
@@ -18,14 +22,14 @@ export async function POST(request: Request) {
       );
     }
 
+    // Connect to MongoDB
+    await connectDB();
+
     // Get user by email
     console.log('Fetching user from database...');
-    const [users] = await pool.execute(
-      'SELECT * FROM users WHERE email = ?',
-      [email]
-    );
+    const user = await User.findOne({ email });
 
-    if (!Array.isArray(users) || users.length === 0) {
+    if (!user) {
       console.log(`User not found for email: ${email}`);
       return NextResponse.json(
         { error: 'Invalid email or password' }, // Keep error generic for security
@@ -33,19 +37,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = users[0] as any;
     console.log(`[API Login] User data retrieved from DB:`, user);
     const storedHash = user.password;
     console.log(`[API Login] Hashed password retrieved from DB: ${storedHash}`);
-    console.log(`[API Login] Hashed password TYPE from DB: ${typeof storedHash}`);
-    console.log(`[API Login] Hashed password LENGTH from DB: ${storedHash.length}`);
 
     // Verify password
     console.log('Comparing passwords...');
-    console.log(`[API Login] Comparing Plain Password: "${password}"`);
-    console.log(`[API Login] Against Hashed Password from DB: "${storedHash}"`);
-
-    const isValidPassword = await comparePasswords(password, storedHash);
+    const isValidPassword = await bcrypt.compare(password, storedHash);
     console.log(`Password comparison result for user ${user.email}: ${isValidPassword}`);
 
     if (!isValidPassword) {
@@ -56,8 +54,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if user is verified (redundant check based on previous issue, but good practice)
-    if (!user.is_verified) {
+    // Check if user is verified
+    if (!user.isVerified) {
       console.log('User is not verified');
       return NextResponse.json(
         { error: 'Please verify your account first' },
@@ -67,14 +65,22 @@ export async function POST(request: Request) {
 
     // Generate JWT token
     console.log('Generating JWT token...');
-    const token = generateToken(user.id, user.role);
+    const token = jwt.sign(
+      { 
+        userId: user._id,
+        role: user.role,
+        email: user.email
+      },
+      JWT_SECRET,
+      { expiresIn: '24h' }
+    );
 
     console.log('Login successful, returning token and user data');
     return NextResponse.json({
       token,
       user: {
-        id: user.id,
-        fullName: user.full_name,
+        id: user._id,
+        fullName: user.fullName,
         email: user.email,
         role: user.role
       }

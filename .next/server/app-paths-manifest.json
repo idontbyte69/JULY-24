@@ -1,9 +1,8 @@
 {
-  "/not-found": "app/not-found.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/victims/page": "app/dashboard/victims/page.js",
-  "/api/auth/login/route": "app/api/auth/login/route.js",
   "/sign-in/page": "app/sign-in/page.js",
+  "/sign-up/page": "app/sign-up/page.js",
   "/verify-account/page": "app/verify-account/page.js",
-  "/page": "app/page.js"
+  "/api/auth/signup/route": "app/api/auth/signup/route.js",
+  "/api/auth/verify/route": "app/api/auth/verify/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js"
 }

@@ -6,8 +6,8 @@ import ConditionalLayout from '@/components/ConditionalLayout'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'JULY-24',
-  description: 'Memorial for the victims of July 24',
+  title: 'JULY-24 Support Platform',
+  description: 'A platform supporting victims of the JULY-24 student movement in Bangladesh',
 }
 
 export default function RootLayout({

@@ -1,4 +1,4 @@
-// File: /Users/idontbyte/Desktop/Coding Stuff/IDP/JULY-24/src/app/api/auth/verify/route.ts
+// File: D:\IDP_2\tan\JULY-24\src\app\api\auth\verify\route.ts
 import * as entry from '../../../../../../src/app/api/auth/verify/route.js'
 import type { NextRequest } from 'next/server.js'
 
